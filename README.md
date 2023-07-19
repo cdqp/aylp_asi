@@ -31,4 +31,7 @@ meson setup build
 meson compile -C build
 ```
 
+Note that ZWO did not set a SONAME on their shared library, so meson will link
+`aylp_asi` against the absolute path of `libASICamera2.so`.
+
 

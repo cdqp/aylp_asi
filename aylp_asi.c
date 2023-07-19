@@ -4,9 +4,6 @@
 #include "xalloc.h"
 #include "aylp_asi.h"
 
-// max tries to get a frame
-static const size_t max_tries = 10000;
-
 static const char *asi_strerror(int err) {
 	switch (err) {
 	case ASI_ERROR_INVALID_INDEX:
@@ -24,7 +21,7 @@ static const char *asi_strerror(int err) {
 		);
 	case ASI_ERROR_INVALID_PATH:
 		return "Cannot find the path of the file.";
-	case ASI_ERROR_INVALID_FILEFORMAT: 
+	case ASI_ERROR_INVALID_FILEFORMAT:
 		return "Invalid file format.";
 	case ASI_ERROR_INVALID_SIZE:
 		return "Wrong video format size.";
