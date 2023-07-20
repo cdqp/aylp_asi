@@ -19,7 +19,7 @@ struct aylp_asi_data {
 	long wb_r;
 	ASI_IMG_TYPE img_type;
 	ASI_CAMERA_INFO cam_info;
-	gsl_block_uchar fb;
+	gsl_matrix_uchar *fb;
 };
 
 // initialize asi device

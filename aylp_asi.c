@@ -4,6 +4,10 @@
 #include "xalloc.h"
 #include "aylp_asi.h"
 
+
+static const int timeout_ms = 500;
+
+
 static const char *asi_strerror(int err) {
 	switch (err) {
 	case ASI_ERROR_INVALID_INDEX:
@@ -163,8 +167,9 @@ int aylp_asi_init(struct aylp_device *self)
 	}
 
 	// allocate framebuffer
-	data->fb.size = data->roi_height * data->roi_width;
-	data->fb.data = xcalloc(1, data->fb.size);
+	data->fb = xcalloc_type(gsl_matrix_uchar,
+		data->roi_height, data->roi_width
+	);
 
 	// set camera controls
 	ASI_CONTROL_TYPE controls[] = {
@@ -202,7 +207,7 @@ int aylp_asi_init(struct aylp_device *self)
 	// set types and units
 	self->type_in = AYLP_T_ANY;
 	self->units_in = AYLP_U_ANY;
-	self->type_out = AYLP_T_BYTES;
+	self->type_out = AYLP_T_MATRIX_UCHAR;
 	self->units_out = AYLP_U_COUNTS;
 	return 0;
 }
@@ -210,26 +215,27 @@ int aylp_asi_init(struct aylp_device *self)
 
 int aylp_asi_process(struct aylp_device *self, struct aylp_state *state)
 {
-	// TODO: they recommend we grab frames from another thread ... I don't
-	// really see how that helps us here
+	// They recommend we grab frames from another thread but I don't really
+	// see how that helps us here
 	int err;
 	struct aylp_asi_data *data = self->device_data;
 
-	err = ASIGetVideoData(data->cam_info.CameraID, data->fb.data,
-		data->roi_width * data->roi_height, 500
+	err = ASIGetVideoData(data->cam_info.CameraID, data->fb->data,
+		data->fb->size1 * data->fb->size2, timeout_ms
 	);
 	if (err) {
 		log_error("Error while getting video data: %s",
 			strerror(err)
 		);
 	}
+
 	// zero-copy update of pipeline state
-	state->bytes = &data->fb;
+	state->matrix_uchar = data->fb;
 	// housekeeping on the header
 	state->header.type = self->type_out;
 	state->header.units = self->units_out;
-	state->header.log_dim.y = data->roi_height;
-	state->header.log_dim.x = data->roi_width;
+	state->header.log_dim.y = data->fb->size1;
+	state->header.log_dim.x = data->fb->size2;
 	state->header.pitch.y = data->pitch_y;
 	state->header.pitch.x = data->pitch_x;
 	return 0;
