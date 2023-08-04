@@ -28,9 +28,10 @@ deps = [asi_dep, gsl_dep, json_dep]
 
 shared_library('aylp_asi', 'aylp_asi.c',
 	name_prefix: '',
-	install: true,
 	dependencies: deps,
 	include_directories: incdir,
+	install: true,
+	install_dir: '/opt/anyloop',
 	override_options: 'b_lundef=false'
 )
 

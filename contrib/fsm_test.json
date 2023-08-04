@@ -1,0 +1,26 @@
+{
+	"pipeline": [
+		{
+			"uri": "file:build/aylp_asi.so",
+			"params": {
+				"cam_index": 0,
+				"roi_height": 800,
+				"roi_width": 800
+			}
+		},
+		{
+			"uri": "anyloop:center_of_mass",
+			"params": {
+				"region_height": 800,
+				"region_width": 800
+			}
+		},
+		{
+			"uri": "anyloop:logger",
+			"params": {
+				"type": "vector"
+			}
+		}
+	]
+}
+
