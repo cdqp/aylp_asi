@@ -93,7 +93,7 @@ int aylp_asi_init(struct aylp_device *self)
 			data->cam_index = json_object_get_int(val);
 			log_trace("cam_index = %d", data->cam_index);
 		} else if (!strcmp(key, "roi_start_y")) {
-			data->roi_width = json_object_get_int(val);
+			data->roi_start_y = json_object_get_int(val);
 			log_trace("roi_start_y = %d", data->roi_width);
 		} else if (!strcmp(key, "roi_start_x")) {
 			data->roi_start_x = json_object_get_int(val);
