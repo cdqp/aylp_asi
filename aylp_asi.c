@@ -71,16 +71,17 @@ int aylp_asi_init(struct aylp_device *self)
 	data->roi_start_y = 0;
 	data->roi_width = -1;
 	data->roi_height = -1;
-	data->pitch_y = 0;		// TODO: json
-	data->pitch_x = 0;		// TODO: json
+	data->pitch_y = 0;
+	data->pitch_x = 0;
 	data->bin = 1;			// TODO: json
 	data->img_type = ASI_IMG_RAW8;	// TODO: json
-	data->exposure_us = 10000;	// TODO: json
-	data->gain = 0;			// TODO: json
-	data->bandwidth_overload = 40;	// TODO: json
-	data->high_speed_mode = 0;	// TODO: json
-	data->wb_b = 90;		// TODO: json
-	data->wb_r = 48;		// TODO: json
+	data->exposure_us = 10000;
+	data->gain = 0;
+	data->bandwidth_overload = 40;
+	data->high_speed_mode = 0;
+	data->wb_b = 90;
+	data->wb_r = 48;
+	// TODO: document parameters in .md file
 	// parse the params json into our data struct
 	if (!self->params) {
 		log_error("No params object found.");
@@ -104,6 +105,34 @@ int aylp_asi_init(struct aylp_device *self)
 		} else if (!strcmp(key, "roi_width")) {
 			data->roi_width = json_object_get_int(val);
 			log_trace("roi_width = %d", data->roi_width);
+		} else if (!strcmp(key, "pitch_y")) {
+			data->pitch_y = json_object_get_double(val);
+			log_trace("pitch_y = %d", data->pitch_y);
+		} else if (!strcmp(key, "pitch_x")) {
+			data->pitch_x = json_object_get_double(val);
+			log_trace("pitch_x = %d", data->pitch_x);
+		} else if (!strcmp(key, "exposure_us")) {
+			data->exposure_us = json_object_get_int(val);
+			log_trace("exposure_us = %d", data->exposure_us);
+		} else if (!strcmp(key, "gain")) {
+			data->gain = json_object_get_int(val);
+			log_trace("gain = %d", data->gain);
+		} else if (!strcmp(key, "bandwidth_overload")) {
+			data->bandwidth_overload = json_object_get_int(val);
+			log_trace("bandwidth_overload = %d",
+				data->bandwidth_overload
+			);
+		} else if (!strcmp(key, "high_speed_mode")) {
+			data->high_speed_mode = json_object_get_int(val);
+			log_trace("high_speed_mode = %d",
+				data->high_speed_mode
+			);
+		} else if (!strcmp(key, "wb_b")) {
+			data->wb_b = json_object_get_int(val);
+			log_trace("wb_b = %d", data->wb_b);
+		} else if (!strcmp(key, "wb_r")) {
+			data->wb_r = json_object_get_int(val);
+			log_trace("wb_r = %d", data->wb_r);
 		} else {
 			log_warn("Unknown parameter \"%s\"", key);
 		}
