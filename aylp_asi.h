@@ -7,8 +7,8 @@
 struct aylp_asi_data {
 	int cam_index;
 	int cam_count;
-	int roi_start_x; int roi_start_y;
-	int roi_width; int roi_height;
+	int roi_start_y; int roi_start_x;
+	int roi_height; int roi_width;
 	double pitch_y; double pitch_x;
 	int bin;	// binning method
 	long exposure_us;

@@ -107,32 +107,32 @@ int aylp_asi_init(struct aylp_device *self)
 			log_trace("roi_width = %d", data->roi_width);
 		} else if (!strcmp(key, "pitch_y")) {
 			data->pitch_y = json_object_get_double(val);
-			log_trace("pitch_y = %d", data->pitch_y);
+			log_trace("pitch_y = %G", data->pitch_y);
 		} else if (!strcmp(key, "pitch_x")) {
 			data->pitch_x = json_object_get_double(val);
-			log_trace("pitch_x = %d", data->pitch_x);
+			log_trace("pitch_x = %G", data->pitch_x);
 		} else if (!strcmp(key, "exposure_us")) {
 			data->exposure_us = json_object_get_int(val);
-			log_trace("exposure_us = %d", data->exposure_us);
+			log_trace("exposure_us = %ld", data->exposure_us);
 		} else if (!strcmp(key, "gain")) {
 			data->gain = json_object_get_int(val);
-			log_trace("gain = %d", data->gain);
+			log_trace("gain = %ld", data->gain);
 		} else if (!strcmp(key, "bandwidth_overload")) {
 			data->bandwidth_overload = json_object_get_int(val);
-			log_trace("bandwidth_overload = %d",
+			log_trace("bandwidth_overload = %ld",
 				data->bandwidth_overload
 			);
 		} else if (!strcmp(key, "high_speed_mode")) {
 			data->high_speed_mode = json_object_get_int(val);
-			log_trace("high_speed_mode = %d",
+			log_trace("high_speed_mode = %ld",
 				data->high_speed_mode
 			);
 		} else if (!strcmp(key, "wb_b")) {
 			data->wb_b = json_object_get_int(val);
-			log_trace("wb_b = %d", data->wb_b);
+			log_trace("wb_b = %ld", data->wb_b);
 		} else if (!strcmp(key, "wb_r")) {
 			data->wb_r = json_object_get_int(val);
-			log_trace("wb_r = %d", data->wb_r);
+			log_trace("wb_r = %ld", data->wb_r);
 		} else {
 			log_warn("Unknown parameter \"%s\"", key);
 		}
